@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Multiline TextBox Example";
+}
+
+<h2>Multiline Textbox - Max Length Counter</h2>
+​
+<textarea data-bind="value: comment, valueUpdate: 'afterkeydown'"></textarea>
+
+<br />
+<br />
+<span data-bind="text: count"></span>characters
+ 
+@section scripts{
+    <script type="text/javascript">
+        var viewModel = function () {
+            var self = this;
+
+            self.comment = ko.observable("");
+            self.count = ko.computed(function () {
+                var countNum = 10 - self.comment().length;
+                return countNum
+            });
+        }
+        var vm = new viewModel();
+        ko.applyBindings(vm);
+    </script>
+}

@@ -1,4 +1,0 @@
-knockout
-========
-
-Knockout Examples
