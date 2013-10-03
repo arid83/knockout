@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
+    @RenderSection("styles", required: false)
 
 </head>
 <body>
@@ -20,6 +21,7 @@
             <li> @Html.ActionLink("Click Counter","Index")  </li>
             <li> @Html.ActionLink("Multiline TextBox","MultilineTextBox")  </li>
             <li> @Html.ActionLink("Password","Password")  </li>
+            <li> @Html.ActionLink("jQuery Tree View","Index","Tree")  </li>
 
         </ol>
     </div>
