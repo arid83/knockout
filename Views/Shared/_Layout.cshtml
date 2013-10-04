@@ -1,4 +1,13 @@
-﻿<!DOCTYPE html>
+﻿@{
+    List<MenuItems> menuItems = new List<MenuItems>() { 
+    new MenuItems(){ linkText = "Click Counter", actionName = "Index", controllerName = "Home"},
+    new MenuItems(){ linkText = "Multiline TextBox", actionName = "MultilineTextBox", controllerName = "Home"},
+    new MenuItems(){ linkText = "Password", actionName = "Password", controllerName = "Home"},
+    new MenuItems(){ linkText = "jQuery Tree View", actionName = "Index", controllerName = "Tree"}
+    };
+    
+    }
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -10,21 +19,15 @@
 </head>
 <body>
     <div class="header">
-        Knockout Js
+        Knockout Js - Simplify dynamic JavaScript UIs with the Model-View-View Model (MVVM) pattern
     
     </div>
 
     <div class="main">
         <div class="leftpanel"> 
-<div class="menu">
-        <ol>
-            <li> @Html.ActionLink("Click Counter","Index")  </li>
-            <li> @Html.ActionLink("Multiline TextBox","MultilineTextBox")  </li>
-            <li> @Html.ActionLink("Password","Password")  </li>
-            <li> @Html.ActionLink("jQuery Tree View","Index","Tree")  </li>
-
-        </ol>
-    </div>
+          
+            @Html.Menu(menuItems, true)
+            
 
         </div>
         <div class="rightpanel"> 

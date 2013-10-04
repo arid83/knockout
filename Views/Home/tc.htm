@@ -1,0 +1,362 @@
+﻿<!DOCTYPE html>
+<html class=" js no-flexbox flexbox-legacy canvas canvastext webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>TimeBook</title>
+    <link rel="shortcut icon" href="src/favicon.png">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <link href="https://cdn4.iconfinder.com/data/icons/brightmix/128/monotone_time_clock.png" rel="shortcut icon" />
+
+
+    <script type="text/javascript">
+
+        var ddl;
+        $(function () {
+            //Time In Hours
+            $("#IH").slider({
+                range: true,
+                min: 6,
+                max: 18,
+                step: 1,
+                slide: function (event, ui) {
+                    $("#txtIH").val(ui.values[1]);
+                    CalculateTimeSpan();
+                }
+            });
+            //Time In Minutes
+            $("#IM").slider({
+                range: true,
+                min: 0,
+                max: 59,
+                step: 5,
+                slide: function (event, ui) {
+                    $("#txtIM").val(ui.values[1]);
+                    CalculateTimeSpan();
+                }
+            });
+            //Time Out Hours
+            $("#OH").slider({
+                range: true,
+                min: 6,
+                max: 23,
+                step: 1,
+                slide: function (event, ui) {
+                    $("#txtOH").val(ui.values[1]);
+                    CalculateTimeSpan();
+                }
+            });
+            //Time Out Minutes
+            $("#OM").slider({
+                range: true,
+                min: 0,
+                max: 59,
+                step: 5,
+                slide: function (event, ui) {
+                    $("#txtOM").val(ui.values[1]);
+                    CalculateTimeSpan();
+                }
+            });
+
+            //Break
+            $("#break").slider({
+                range: true,
+                min: 0,
+                max: 240,
+                step: 5,
+                slide: function (event, ui) {
+                    $("#txtBreak").val(ui.values[1]);
+                    CalculateTimeSpan();
+                }
+            });
+            //---------------------
+
+
+
+            $("#btnCalculate").click(CalculateTimeSpan());
+
+
+            $("#txtIH").val('9');
+            $("#txtIM").val('0');
+            $("#txtOH").val('18');
+            $("#txtOM").val('0');
+            $("#txtBreak").val('0');
+            CalculateTimeSpan();
+
+            var dt = new Date();
+            var today = dt.getDate() + '-' + dt.getMonth() + '-' + dt.getFullYear();
+
+            $(".containerbg").dialog({
+                title: "Time Calculator for " + today,
+                autoOpen: true,
+                width: 345,
+                modal: true,        // Default: false 
+                resizable: false,    // Default: true
+
+            });
+
+
+        });
+
+        function CalculateTimeSpan() {
+            var ih = parseFloat($("#txtIH").val());
+            var im = parseFloat($("#txtIM").val());
+            var oh = parseFloat($("#txtOH").val());
+            var om = parseFloat($("#txtOM").val());
+            var br = parseFloat($("#txtBreak").val());
+
+            var Timein = (ih * 60) + im;
+            var Timeout = (oh * 60) + om;
+
+            var TotalTimeSpan = (Timeout - Timein - br);
+            TotalTimeSpan = TotalTimeSpan / 60;
+            if (TotalTimeSpan >= 8.0) {
+                $('input[type="text"]').css({ 'color': '#fff', 'background-color': '#008800' });
+            }
+            else {
+                $('input[type="text"]').css({ 'color': '#fff', 'background-color': '#880000' });
+            }
+            $("#total").html(TotalTimeSpan.toFixed(2));
+        }
+    </script>
+    <style type="text/css">
+        body {
+            font-size: .85em;
+            font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+            padding: 0;
+            margin: 0;
+            background-color: #E0E0E0;
+        }
+
+        .icm {
+            font-family: 'IcoMoon';
+        }
+
+        header, footer, nav, section {
+            display: block;
+        }
+
+
+        /* Styles for basic forms
+-----------------------------------------------------------*/
+        .container {
+            padding: 0;
+            margin: 0 auto;
+            display: table;
+            width: 306px;
+        }
+
+        .rightcontainer {
+            float: left;
+            width: 306px;
+        }
+
+        .container-header {
+            background-color: transparent;
+            background-image: url("http://www.accuchex.com/portals/0/banner_timemgmt.jpg");
+            background-position: 0 -50px;
+            background-repeat: no-repeat;
+            height: 188px;
+        }
+
+        .header-menu {
+            float: left;
+        }
+
+            .header-menu a:link, .header-menu a:visited, .header-menu a:hover, .header-menu a:active {
+                color: #5AB5EC;
+                float: left;
+                margin-right: 2px;
+                padding: 3px 5px;
+            }
+
+            .header-menu a:hover {
+                background-color: #5AB5EC;
+                color: #04436A;
+                text-decoration: none;
+            }
+
+
+        .containerbg {
+            background-color: #FFFFFF;
+            border-color: #033E63;
+            border-image: none;
+            border-style: solid;
+            border-width: 0 5px 5px;
+            box-shadow: 0 0 15px #022134;
+            display: table;
+            margin: 0 auto;
+            padding: 15px 15px 10px;
+            width: 306px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 8px;
+        }
+
+        td, th {
+            padding: 5px;
+            text-align: left;
+            vertical-align: top;
+            border: 1px solid #F0F0F0;
+        }
+
+        th {
+            padding: 16px 8px;
+        }
+
+        input[type="submit"], input[type="button"], button {
+            background-color: #2AAAFF;
+            border: 1px solid #2A7FFF;
+            color: #020338;
+            cursor: pointer;
+            font-size: 2em;
+            padding: 5px 10px;
+            text-decoration: none;
+            width: 100%;
+        }
+
+            input[type="submit"]:hover, input[type="button"]:hover, button:hover {
+                background-color: #2A7FFF;
+                border: 1px solid #2A55FF;
+            }
+
+        input[type="text"], input[type="number"], input[type="password"], input[type="datetime"], select, textarea {
+            border: 5px solid #F1F1F1;
+            border-radius: 5% 5% 5% 5%;
+            padding: 5px;
+        }
+
+        .clear {
+            clear: both;
+        }
+
+        .timeresult {
+            color: #880000;
+            font-size: 28px;
+            font-weight: 100;
+            margin: 0;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            font-size: 16px;
+            height: 30px;
+            text-align: center;
+            width: 30px;
+        }
+
+        input.break[type="text"] {
+            width: 84px;
+        }
+
+        #IH, #IM, #OH, #OM, #break {
+            margin-left: 12px;
+            margin-top: 2px;
+            width: 100px;
+        }
+
+        #break {
+            margin-top: 23px;
+        }
+
+        address {
+            text-align: center;
+            font-size: 12px;
+            font-style: normal;
+        }
+
+        .ui-slider-horizontal {
+            height: 0.5em;
+        }
+
+        .ui-slider .ui-slider-handle {
+            cursor: default;
+            height: 0.7em;
+            position: absolute;
+            width: 0.7em;
+            z-index: 2;
+        }
+
+        .ui-slider-horizontal .ui-slider-handle {
+            margin-left: -0.3em;
+            top: -0.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="containerbg">
+
+        <div class="clear"></div>
+        <div class="container">
+            <div class="rightcontainer">
+
+                <h2 id="total" class="timeresult"></h2>
+                <table>
+                    <tr>
+
+                        <td style="width: 155px" rowspan="2">
+                            <input type="text" id="txtIH" readonly="readonly" />
+                            <input type="text" id="txtIM" readonly="readonly" />
+
+                        </td>
+                        <td>
+                            <div id="IH"></div>
+                        </td>
+                    </tr>
+                    <tr>
+
+
+
+                        <td>
+                            <div id="IM"></div>
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <td rowspan="2">
+                            <input type="text" id="txtOH" readonly="readonly" />
+                            <input type="text" id="txtOM" readonly="readonly" />
+                        </td>
+                        <td>
+                            <div id="OH"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div id="OM"></div>
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <td>
+                            <input type="text" id="txtBreak" readonly="readonly" class="break" /></td>
+                        <td>
+                            <div id="break"></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+
+                        <td colspan="2">
+                            <address>Version 1.0.0.2 &copy; copyright 2013 </address>
+                        </td>
+
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+
+
+
+</body>
+</html>
